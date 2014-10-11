@@ -37,11 +37,11 @@ RUN ls -lah
 RUN ls -lah
 RUN mkdir build
 WORKDIR  ./build
-RUN cmake .. -DICINGA2_GROUP=$ICINGA_CMD -DUSE_SYSTEMD=ON
+RUN cmake .. -DICINGA2_GROUP=$ICINGA_CMD -DUSE_SYSTEMD=ON 
 RUN make
 RUN make install
 
-#RUN ./configure --with-command-group=$ICINGA_CMD --disable-idoutils
+#RUN ./configure --with-command-group=$ICINGA_CMD --disable-idoutils --disable-testing
 #RUN make all
 #RUN make install
 # CentOS 7 has systemd
