@@ -1,5 +1,5 @@
 # DOCKER-VERSION 0.3.4
-# image olafradicke/fedora-icinga-check_km
+# image olafradicke/fedora20-icinga2-check_km
 
 FROM fedora:20
 MAINTAINER Olaf Raicke <olaf@atix.de>
