@@ -10,7 +10,7 @@ ENV ICINGA_CMD icinga-cmd
 ENV BUILD_DIR /tmp
 
 RUN yum -y update
-RUN yum -y --setopt=tsflags=nodocs install wget tar gzip cmake make bison flex gcc-c++ boost
+RUN yum -y --setopt=tsflags=nodocs install wget tar gzip cmake make bison flex gcc-c++ boost  boost-test
 RUN yum -y --setopt=tsflags=nodocs install httpd gcc glibc glibc-common gd gd-devel
 RUN yum -y --setopt=tsflags=nodocs install libjpeg libjpeg-devel libpng libpng-devel
 RUN yum -y --setopt=tsflags=nodocs install net-snmp net-snmp-devel net-snmp-utils
@@ -37,11 +37,11 @@ RUN ls -lah
 RUN ls -lah
 RUN mkdir build
 WORKDIR  ./build
-RUN cmake .. -DICINGA2_GROUP=$ICINGA_CMD -DUSE_SYSTEMD=ON 
+RUN cmake .. -DICINGA2_GROUP=$ICINGA_CMD -DUSE_SYSTEMD=ON
 RUN make
 RUN make install
 
-#RUN ./configure --with-command-group=$ICINGA_CMD --disable-idoutils --disable-testing
+#RUN ./configure --with-command-group=$ICINGA_CMD --disable-idoutils
 #RUN make all
 #RUN make install
 # CentOS 7 has systemd
