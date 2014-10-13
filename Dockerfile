@@ -46,7 +46,7 @@ EXPOSE 22
 # ENTRYPOINT  ["/opt/icinga2_start.sh"]
 
 ENTRYPOINT  ["/usr/sbin/icinga2"]
-CMD ["--daemonize","--errorlog","/var/log/icinga2/error.log","--user","icinga","--group","icingacmd","/etc/icinga2/icinga.cfg","&"]
+CMD ["--daemonize","--errorlog","/var/log/icinga2/error.log","--user","icinga","--group","icingacmd","/etc/icinga2/icinga.cfg"]
 
 
 
