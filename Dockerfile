@@ -22,9 +22,9 @@ RUN yum clean all
 
 RUN wget http://packages.icinga.org/fedora/ICINGA-release.repo -O /etc/yum.repos.d/ICINGA-release.repo
 RUN yum makecache
-RUN yum -y --setopt=tsflags=nodocs install icinga2
+RUN yum -y --setopt=tsflags=nodocs install icinga2 nagios-plugins-all
 
-RUN echo "/usr/sbin/icinga2 -d -e $ICINGA2_ERROR_LOG -u $ICINGA2_USER  -g $ICINGA2_GROUP $ICINGA2_CONFIG_FILE && echo icinga is started..." > /opt/icinga2_start.sh
+RUN echo "/usr/sbin/icinga2 -d -e $ICINGA2_ERROR_LOG -u $ICINGA2_USER  -g $ICINGA2_GROUP $ICINGA2_CONFIG_FILE && echo icinga is started... > /tmp/icinga.out" > /opt/icinga2_start.sh
 
 # /usr/sbin/icinga2 -d /usr/local/icinga/etc/icinga.cfg
 RUN chmod 770 /opt/icinga2_start.sh
@@ -36,11 +36,21 @@ RUN chown $ICINGA2_USER.$ICINGA2_GROUP /var/run/icinga2/
 # check_mk
 RUN  yum -y install --nogpgcheck  https://mathias-kettner.de/download/check_mk-agent-1.2.4p5-1.noarch.rpm
 
-
-############################################
-CMD ["/opt/icinga2_start.sh"]
-CMD ["/usr/sbin/icinga2","-d","-e $ICINGA2_ERROR_LOG","-u $ICINGA2_USER","$ICINGA2_CONFIG_FILE"]
+###################################################
 
 # for password less logins
 VOLUME ["/root/.ssh:/var/docker-container/root-ssh"]
 EXPOSE 22
+
+############################################
+# ENTRYPOINT  ["/opt/icinga2_start.sh"]
+
+ENTRYPOINT  ["/usr/sbin/icinga2"]
+CMD ["--daemonize","--errorlog","/var/log/icinga2/error.log","--user","icinga","--group","icingacmd","/etc/icinga2/icinga.cfg","&"]
+
+
+
+
+
+
+
