@@ -12,6 +12,10 @@ ENV ICINGA2_ERROR_LOG /var/log/icinga2/error.log
 
 ENV BUILD_DIR /tmp
 
+ADD ./scripts/start.sh /start.sh
+RUN chmod 755 /start.sh
+RUN ls -lah
+
 RUN yum -y update
 RUN yum -y --setopt=tsflags=nodocs install wget
 #tar gzip cmake make bison flex gcc-c++ boost-devel
@@ -45,8 +49,8 @@ EXPOSE 22
 ############################################
 # ENTRYPOINT  ["/opt/icinga2_start.sh"]
 
-ENTRYPOINT  ["/usr/sbin/icinga2"]
-CMD ["--daemonize","--errorlog","/var/log/icinga2/error.log","--user","icinga","--group","icingacmd","/etc/icinga2/icinga.cfg"]
+ENTRYPOINT  ["/bin/bash"]
+CMD ["start.sh"]
 
 
 
