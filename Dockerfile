@@ -19,10 +19,6 @@ RUN ls -lah
 RUN yum -y update
 RUN yum -y --setopt=tsflags=nodocs install wget
 RUN yum -y --setopt=tsflags=nodocs install httpd
-#gcc glibc glibc-common gd gd-devel
-#RUN yum -y --setopt=tsflags=nodocs install libjpeg libjpeg-devel libpng libpng-devel
-#RUN yum -y --setopt=tsflags=nodocs install net-snmp net-snmp-devel net-snmp-utils
-#RUN yum clean all
 
 RUN wget http://packages.icinga.org/fedora/ICINGA-release.repo -O /etc/yum.repos.d/ICINGA-release.repo
 RUN yum makecache
@@ -40,6 +36,7 @@ RUN  yum -y install --nogpgcheck  https://mathias-kettner.de/download/check_mk-a
 
 # for password less logins
 VOLUME ["/root/.ssh:/var/docker-container/root-ssh"]
+VOLUME ["/var/log/:/var/docker-container/log/fedora20-icinga/"]
 EXPOSE 22
 EXPOSE 80
 
